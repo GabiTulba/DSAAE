@@ -13,11 +13,11 @@ COMPILER_FLAGS = -std=gnu++17 -g -Wall -Wextra -Werror
 LINKER_FLAGS = -lSDL2
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = PoC
+OBJ_NAME = PoC.elf64
 
 #This is the target that compiles our executable
 all : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
 clean:
-	rm -rf PoC
+	rm -rf PoC.elf64
