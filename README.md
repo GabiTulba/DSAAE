@@ -1,1 +1,1 @@
-# Visual Compiler
+# Data Structures and Algorithms Animation Engine
