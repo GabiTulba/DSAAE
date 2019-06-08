@@ -1,3 +1,5 @@
+.PHONY: all clean
+
 #OBJS specifies which files to compile as part of the project
 OBJS = main.cpp
 
@@ -5,8 +7,7 @@ OBJS = main.cpp
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
-# -w suppresses all warnings
-COMPILER_FLAGS = -w -std=c11
+COMPILER_FLAGS = -std=gnu++17 -g -Wall -Wextra -Werror
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2
@@ -18,3 +19,5 @@ OBJ_NAME = PoC
 all : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 
+clean:
+	rm -rf PoC
