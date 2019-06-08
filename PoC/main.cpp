@@ -3,11 +3,6 @@
 #include <vector>
 #include <set>
 
-
-//Renderer singleton to manage talking to the SDL library
-
-class Renderer;
-
 class Node
 {
     private:
@@ -15,7 +10,8 @@ class Node
         Renderer *renderer;
         SDL_Rect object;
 
-        Node(int v, int x, int y, int s, Renderer *rend)
+    public:
+	Node(int v, int x, int y, int s, Renderer *rend)
         {
             value = v;
             object.x = x;
@@ -41,11 +37,9 @@ class Node
                 renderer->redraw();
             }
             renderer->erase(this);
-            delete object;
             renderer = NULL;
         }
 
-    public:
         bool operator < (const Node &rhs) const
         {
             return value < rhs.value;
@@ -62,7 +56,8 @@ class Renderer
     
         std::set<Node *> entities;
 
-        Renderer(int width, int height, char *title)
+    public:
+	Renderer(int width, int height, char *title)
         {
             WINDOW_WIDTH = width;
             WINDOW_HEIGHT = height;
@@ -87,6 +82,7 @@ class Renderer
                 }
             }
         }
+
         ~Renderer()
         {
             entities.clear();
@@ -94,7 +90,7 @@ class Renderer
             SDL_DestroyRenderer(renderer);
             SDL_Quit();
         }
-    public:
+
         void redraw()
         {
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -131,6 +127,7 @@ class Stack
 
         std::vector<Node> object;
 
+    public:
         Stack(int x, int y, int size)
         {
             start_x = x;
@@ -143,12 +140,12 @@ class Stack
             object.clear();
         }
 
-    public:
         void push(int a)
         {
             Node aux(a, start_x, start_y + nodeSize * object.size(), nodeSize);
             object.push_back(aux);
         }
+
         void pop()
         {
             object.pop_back();
@@ -157,24 +154,17 @@ class Stack
 
 int main(int argc, char * argv[])
 {
-    if(Init_SDL() == false)
-    {
-        return 0;
-    }
-    else
-    {
-        Stack S;
+    Renderer renderer(640, 480, "Proof of Concept");
+    Stack S;
+ 
+    S.push(4);
+    S.push(3);
+    S.push(1);
+    S.push(2);
+    S.pop();
+    S.pop();
+    S.push(2);
+    S.push(1);
 
-        S.push(4);
-        S.push(3);
-        S.push(1);
-        S.push(2);
-        S.pop();
-        S.pop();
-        S.push(2);
-        S.push(1);
-        
-        Close_SDL();
-    }
     return 0;
 }
