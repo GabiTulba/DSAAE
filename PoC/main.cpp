@@ -4,6 +4,8 @@
 #include <set>
 #include "main.h"
 
+#define UNUSED __attribute__((unused))
+
 Node::Node(int v, int x, int y, int s, Renderer *rend)
 {
     value = v;
@@ -127,9 +129,8 @@ class Stack
 
         void push(int a)
         {
-            Node *aux;
+            Node *aux = new Node(a, start_x + (nodeSize + 2) * object.size(), start_y , nodeSize, renderer);
             renderer->insert(aux);
-	    aux= new Node(a, start_x + (nodeSize + 2) * object.size(), start_y , nodeSize, renderer);
             object.push_back(aux);
         }
 
@@ -141,9 +142,10 @@ class Stack
         }
 };
 
-int main(int argc, char * argv[])
+int main(UNUSED int argc, UNUSED char * argv[])
 {
-    Renderer renderer(640, 480, "Proof of Concept");
+    char title[] = "Proof of Concept";
+    Renderer renderer(640, 480, title);
     Stack S(50, 50, 25, &renderer);
     S.push(4);
     S.push(3);
