@@ -4,4 +4,7 @@ Currenly a PoC implementation of a Stack is available.
 
 ## Requirements
 - Library SDLv2
-- Catch2 (for unit testing) 
+- Catch2 (for unit testing)
+
+## Obs
+- Catch2 is pretty slow at compilation time (10-15 seconds)
