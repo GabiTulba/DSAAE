@@ -7,7 +7,7 @@
 
 namespace DSAAE {
 
-class Node;
+class INode;
 
 class Renderer {
     private:
@@ -15,26 +15,27 @@ class Renderer {
         SDL_Window *m_window     = nullptr;
         int m_window_width, m_window_height;
         std::string m_title;
-        std::set<Node*> m_entities;
+        std::set<INode*> m_entities;
 
     public:
         Renderer(int width, int height, std::string &title);
         ~Renderer();
         void redraw() const;
-        void erase(Node *entity);
-        void insert(Node *entity);
+        void erase(INode *entity);
+        void insert(INode *entity);
 };
 
-class Node {
+class INode {
     friend class Renderer;
     private:
         int m_value, m_size;
         Renderer *m_renderer;
-        SDL_Rect m_object;
 
     public:
-        Node(int value, int x, int y, int size, Renderer *rend);
-        ~Node();
+        INode(int value, int x, int y, int size, Renderer *rend);
+        ~INode();
+        virtual void draw() = 0;
+        virtual void destroy() = 0;
 };
 
 
